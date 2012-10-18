@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>JavaHeatMaps</groupId>
+    <artifactId>JavaHeatMaps</artifactId>
+    <version>1.0</version>
+    <modules>
+        <module>gheat</module>
+        <module>heatmaps</module>
+
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <name>Java Heat Maps</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+
+</project>
