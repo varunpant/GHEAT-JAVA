@@ -17,16 +17,17 @@ public class PostGisDataSource implements DataSource {
     ResultSet rs = null;
     List<PointLatLng> llList;
 
-    String url = null;
-    String user = null;
-    String password = null;
+    static String url = null;
+    static String user = null;
+    static String password = null;
+    static String query = null;
 
-
-    public PostGisDataSource(String url, String user, String password) {
+    public PostGisDataSource(String url, String user, String password, String query) {
         llList = new ArrayList<PointLatLng>();
         this.url = url;
         this.password = password;
         this.user = user;
+        this.query = query;
     }
 
     @Override
@@ -52,7 +53,7 @@ public class PostGisDataSource implements DataSource {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url, user, password);
 
-            String stm = "SELECT ST_AsText(\"wkb_geometry\") as geom ,\"offences\" FROM crimedata WHERE \"wkb_geometry\" @ ST_MakeEnvelope(?,?,?,?,4326)";
+            String stm = query;
 
             pst = con.prepareStatement(stm);
             pst.setDouble(1, llx);
@@ -65,7 +66,7 @@ public class PostGisDataSource implements DataSource {
             while (rs.next()) {
                 String wkt = rs.getString("geom");
                 String[] points = wkt.replace("POINT(", "").replace(")", "").split(" ");   //:!
-                double offenses = rs.getDouble("offences");
+                double offenses = rs.getDouble("weight");
 
                 double longitude = Double.parseDouble(points[0]);//x
                 double latitude = Double.parseDouble(points[1]); //y
