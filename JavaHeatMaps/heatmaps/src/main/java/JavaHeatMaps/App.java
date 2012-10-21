@@ -25,8 +25,9 @@ public class App {
             URL classpathResource = Thread.currentThread().getContextClassLoader().getResource("");
 
             ThemeManager.init(classpathResource.getPath() + "res/etc/");
+
              DataSource dataSource = new FileDataSource(classpathResource.getPath() + "points.txt");
-            //DataSource dataSource = new PostGisDataSource("jdbc:postgresql://localhost/Crime", "postgres", "postgres", query);
+         //  DataSource dataSource = new PostGisDataSource("jdbc:postgresql://localhost/Crime", "postgres", "postgres", query);
             dataManager = new DataManager(dataSource);
 
 
