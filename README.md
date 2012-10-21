@@ -17,9 +17,9 @@ Source can be compiled using maven and there is a jetty web application included
 >User can either change the query to put together a quick hack with its own data ,notice the required aliases(**geom** and **weight**) for this to work (SELECT ST_AsText("the_geom") as **geom** ,"offences" as **weight** FROM tablename WHERE "the_geom" @ ST_MakeEnvelope(?,?,?,?,**SRID**))or change the source of gheat module for a better and more elegant solution
 
 **Here are some screen shots**
-![Heat map classic theme](https://github.com/varunpant/GHEAT-JAVA/blob/master/screenshots/heatmap%201.PNG?raw=true "Classic Theme")
+>![Heat map classic theme](https://github.com/varunpant/GHEAT-JAVA/blob/master/screenshots/heatmap%201.PNG?raw=true "Classic Theme")
 ![Heat map classic theme](https://github.com/varunpant/GHEAT-JAVA/blob/master/screenshots/heatmap%202.PNG?raw=true "Fire Theme")
-![Heat map classic theme](https://github.com/varunpant/GHEAT-JAVA/blob/master/screenshots/heatmap%203.PNG?raw=true "Neo Theme")
+>![Heat map classic theme](https://github.com/varunpant/GHEAT-JAVA/blob/master/screenshots/heatmap%203.PNG?raw=true "Neo Theme")
 ![Heat map classic theme](https://github.com/varunpant/GHEAT-JAVA/blob/master/screenshots/heatmap%204.PNG?raw=true "Custom Theme")
 
 I hope you find it useful.
