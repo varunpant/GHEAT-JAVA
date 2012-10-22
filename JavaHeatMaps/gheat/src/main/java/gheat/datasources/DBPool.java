@@ -1,0 +1,51 @@
+package gheat.datasources;
+
+import org.apache.commons.dbcp.cpdsadapter.DriverAdapterCPDS;
+import org.apache.commons.dbcp.datasources.SharedPoolDataSource;
+
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Properties;
+
+
+public class DBPool {
+    final static String PROPSFILE = "db.properties";
+    private static DataSource ds;
+
+    private static Properties getProperties() {
+        Properties dataSourceProperties = new Properties();
+        try {
+            dataSourceProperties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(PROPSFILE));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return dataSourceProperties;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        if (ds == null) {
+            Properties dataSourceProperties = getProperties();
+            DriverAdapterCPDS cpds = new DriverAdapterCPDS();
+            try {
+                cpds.setDriver(dataSourceProperties.getProperty("driverClass"));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            cpds.setUrl(dataSourceProperties.getProperty("url"));
+            cpds.setUser(dataSourceProperties.getProperty("username"));
+            cpds.setPassword(dataSourceProperties.getProperty("password"));
+
+            SharedPoolDataSource tds = new SharedPoolDataSource();
+            tds.setConnectionPoolDataSource(cpds);
+            tds.setMaxActive(Integer.valueOf(dataSourceProperties.getProperty("maxActive")));
+            tds.setMaxWait(Integer.valueOf(dataSourceProperties.getProperty("maxWait")));
+
+            ds = tds;
+
+        }
+
+        return ds.getConnection();
+    }
+}

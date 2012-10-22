@@ -10,7 +10,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDataSource implements DataSource {
+public class FileDataSource implements HeatMapDataSource {
 
     static List<PointLatLng> _pointList = null;
 

@@ -4,29 +4,27 @@ import gheat.DataPoint;
 import gheat.PointLatLng;
 import gheat.Projections;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PostGisDataSource implements DataSource {
+public class PostGisDataSource implements HeatMapDataSource {
 
-    Connection con = null;
+
     PreparedStatement pst = null;
     ResultSet rs = null;
     List<PointLatLng> llList;
+    Connection con = null;
 
-    static String url = null;
-    static String user = null;
-    static String password = null;
     static String query = null;
 
-    public PostGisDataSource(String url, String user, String password, String query) {
+    public PostGisDataSource(String query) {
         llList = new ArrayList<PointLatLng>();
-        this.url = url;
-        this.password = password;
-        this.user = user;
+
         this.query = query;
     }
 
@@ -50,8 +48,8 @@ public class PostGisDataSource implements DataSource {
 
     private List<PointLatLng> getData(double llx, double lly, double ulx, double uly) {
         try {
-            Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection(url, user, password);
+
+            con = DBPool.getConnection();
 
             String stm = query;
 
@@ -79,19 +77,6 @@ public class PostGisDataSource implements DataSource {
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
 
         } finally {
-
-            try {
-                if (pst != null) {
-                    pst.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(PostGisDataSource.class.getName());
-                lgr.log(Level.SEVERE, ex.getMessage(), ex);
-            }
 
             return llList;
         }

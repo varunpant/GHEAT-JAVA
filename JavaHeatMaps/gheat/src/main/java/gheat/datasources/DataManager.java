@@ -10,9 +10,9 @@ import java.util.List;
 public class DataManager {
 
     private Projections _projection = new MercatorProjection();
-    private DataSource dataSource;
+    private HeatMapDataSource dataSource;
 
-    public DataManager(DataSource dataSource) {
+    public DataManager(HeatMapDataSource dataSource) {
         this.dataSource = dataSource;
     }
 

@@ -1,8 +1,8 @@
 package JavaHeatMaps;
 
 import gheat.datasources.DataManager;
-import gheat.datasources.DataSource;
-import gheat.datasources.FileDataSource;
+import gheat.datasources.HeatMapDataSource;
+import gheat.datasources.PostGisDataSource;
 import gheat.graphics.ThemeManager;
 import org.eclipse.jetty.server.Server;
 
@@ -26,8 +26,8 @@ public class App {
 
             ThemeManager.init(classpathResource.getPath() + "res/etc/");
 
-             DataSource dataSource = new FileDataSource(classpathResource.getPath() + "points.txt");
-         //  DataSource dataSource = new PostGisDataSource("jdbc:postgresql://localhost/Crime", "postgres", "postgres", query);
+           //  DataSource dataSource = new FileDataSource(classpathResource.getPath() + "points.txt");
+            HeatMapDataSource dataSource = new PostGisDataSource(query);
             dataManager = new DataManager(dataSource);
 
 

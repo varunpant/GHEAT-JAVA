@@ -1,5 +1,5 @@
 import junit.framework.TestCase;
-import org.junit.Test;
+
 
 
 public class HeatMapTest extends TestCase {
@@ -7,7 +7,7 @@ public class HeatMapTest extends TestCase {
 
 
 
-    @Test
+
     public void testOverloadedMethod() throws Exception {
 
 //        ThemeManager.init("..\\res\\etc\\");
