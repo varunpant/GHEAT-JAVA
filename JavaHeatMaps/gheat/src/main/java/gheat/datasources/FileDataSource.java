@@ -77,4 +77,9 @@ public class FileDataSource implements HeatMapDataSource {
 
         return llList.toArray(new PointLatLng[llList.size()]);
     }
+
+    @Override
+    public void close() {
+
+    }
 }

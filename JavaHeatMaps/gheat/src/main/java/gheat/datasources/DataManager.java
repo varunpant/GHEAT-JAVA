@@ -55,4 +55,9 @@ public class DataManager {
     private static DataPoint AdjustMapPixelsToTilePixels(DataPoint tileXYPoint, DataPoint mapPixelPoint) {
         return new DataPoint(mapPixelPoint.getX() - (tileXYPoint.getX() * HeatMap.SIZE), mapPixelPoint.getY() - (tileXYPoint.getY() * HeatMap.SIZE));
     }
+
+    public void close()
+    {
+        this.dataSource.close();
+    }
 }

@@ -46,6 +46,15 @@ public class PostGisDataSource implements HeatMapDataSource {
         return llList.toArray(new PointLatLng[llList.size()]);
     }
 
+    @Override
+    public void close()  {
+        try {
+            DBPool.CloseConnections();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<PointLatLng> getData(double llx, double lly, double ulx, double uly) {
         try {
 

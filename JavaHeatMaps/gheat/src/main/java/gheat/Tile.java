@@ -2,6 +2,7 @@ package gheat;
 
 
 import gheat.graphics.BlendComposite;
+import gheat.graphics.GammaCorrection;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -164,30 +165,30 @@ public class Tile {
     /// <param name="weight">Weight to apply</param>
     /// <returns></returns>
     private static BufferedImage ApplyWeightToImage(BufferedImage image, double weight) {
-//        Graphics2D graphic;
-//        double tempWeight;
-//        BufferedImage tempImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-//
-//        graphic = tempImage.createGraphics();
-//
-//        //I want to make the color more intense (White/bright)
-//        tempWeight = weight;
-//
-//        //AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f);
-//        // graphic.setComposite(composite);
-//
-//        graphic.drawImage(
-//                image, // Source Image
-//                0, 0, image.getWidth(), image.getHeight(),
-//                0,
-//                0,
-//                image.getWidth(), image.getHeight(), // source height
-//                null
-//        );
-//
-//        //New dot with a different intensity
-//        return GammaCorrection.gammaCorrection(tempImage, (tempWeight == 0 ? .1f : (tempWeight * 5)));
-        return image;
+        Graphics2D graphic;
+        double tempWeight;
+        BufferedImage tempImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+        graphic = tempImage.createGraphics();
+
+        //I want to make the color more intense (White/bright)
+        tempWeight = weight;
+
+        //AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f);
+        // graphic.setComposite(composite);
+
+        graphic.drawImage(
+                image, // Source Image
+                0, 0, image.getWidth(), image.getHeight(),
+                0,
+                0,
+                image.getWidth(), image.getHeight(), // source height
+                null
+        );
+
+        //New dot with a different intensity
+        return GammaCorrection.gammaCorrection(tempImage, (tempWeight == 0 ? .1f : (tempWeight * 5)));
+
     }
 
     /// <summary>

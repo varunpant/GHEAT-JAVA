@@ -13,6 +13,7 @@ import java.util.Properties;
 public class DBPool {
     final static String PROPSFILE = "db.properties";
     private static DataSource ds;
+    private static SharedPoolDataSource tds;
 
     private static Properties getProperties() {
         Properties dataSourceProperties = new Properties();
@@ -37,7 +38,7 @@ public class DBPool {
             cpds.setUser(dataSourceProperties.getProperty("username"));
             cpds.setPassword(dataSourceProperties.getProperty("password"));
 
-            SharedPoolDataSource tds = new SharedPoolDataSource();
+            tds = new SharedPoolDataSource();
             tds.setConnectionPoolDataSource(cpds);
             tds.setMaxActive(Integer.valueOf(dataSourceProperties.getProperty("maxActive")));
             tds.setMaxWait(Integer.valueOf(dataSourceProperties.getProperty("maxWait")));
@@ -47,5 +48,13 @@ public class DBPool {
         }
 
         return ds.getConnection();
+    }
+
+    public static void CloseConnections() throws Exception {
+        if (ds != null) {
+            tds.close();
+            ds = null;
+            tds = null;
+        }
     }
 }
