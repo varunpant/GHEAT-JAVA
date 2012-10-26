@@ -1,8 +1,8 @@
 package JavaHeatMaps;
 
 import gheat.datasources.DataManager;
-import gheat.datasources.FileDataSource;
 import gheat.datasources.HeatMapDataSource;
+import gheat.datasources.QuadTreeDataSource;
 import gheat.graphics.ThemeManager;
 import org.eclipse.jetty.server.Server;
 
@@ -27,8 +27,10 @@ public class App {
 
             ThemeManager.init(classpathResource.getPath() + "res/etc/");
 
-             HeatMapDataSource   dataSource = new FileDataSource(classpathResource.getPath() + "points.txt");
-           // HeatMapDataSource dataSource = new PostGisDataSource(query);
+            // HeatMapDataSource dataSource = new FileDataSource(classpathResource.getPath() + "points.txt");
+             HeatMapDataSource dataSource = new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
+            //HeatMapDataSource dataSource = new PostGisDataSource(query);
+
             dataManager = new DataManager(dataSource);
 
 
@@ -41,7 +43,7 @@ public class App {
         server.start();
         server.join();
 
-      //  dataManager.close();
+        //  dataManager.close();
 
     }
 }

@@ -26,7 +26,7 @@ public class FileDataSource implements HeatMapDataSource {
         String[] lines = readAllTextFileLines(source);
         for (String line : lines) {
             item = line.split(",");
-            _pointList.add(new PointLatLng(Double.parseDouble(item[1]), Double.parseDouble(item[2])));
+            _pointList.add(new PointLatLng(Double.parseDouble(item[2]), Double.parseDouble(item[1])));
         }
     }
 
@@ -60,7 +60,7 @@ public class FileDataSource implements HeatMapDataSource {
 
         ptlb = _projection.fromPixelToLatLng(tlb, zoom);
         plrb = _projection.fromPixelToLatLng(lrb, zoom);
-
+        System.out.println(ptlb + ", " + plrb);
         //Find all of the points that belong in the expanded tile
         // Some points may appear in more than one tile depending where they appear
         llList = new ArrayList<PointLatLng>();

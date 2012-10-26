@@ -1,26 +1,38 @@
 package gheat;
 
 
-public class PointLatLng {
+public class PointLatLng implements Comparable {
 
 
     private double weight;
     private double longitude;
     private double latitude;
+    private Object opt_value;
 
+    public Object getValue() {
+        return opt_value;
+    }
 
+    public void setValue(Object opt_value) {
+        this.opt_value = opt_value;
+    }
 
-    public PointLatLng(double latitude, double longitude) {
+    public PointLatLng(double longitude, double latitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public PointLatLng(double latitude, double longitude, double weight) {
+    public PointLatLng(double longitude, double latitude, double weight) {
         this.latitude = latitude;
         this.longitude = longitude;
-        this.weight = weight;
+       // this.weight = weight;
     }
 
+    public PointLatLng(double longitude, double latitude, Object opt_value) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.opt_value = opt_value;
+    }
 
     public double getWeight() {
         return weight;
@@ -44,5 +56,30 @@ public class PointLatLng {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + this.longitude + ", " + this.latitude + ")";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PointLatLng tmp = (PointLatLng) o;
+        if (this.longitude < tmp.longitude) {
+            return -1;
+        } else if (this.longitude > tmp.longitude) {
+            return 1;
+        }
+        else
+        {
+            if (this.latitude < tmp.latitude) {
+                return -1;
+            } else if (this.latitude > tmp.latitude) {
+                return 1;
+            }
+            return 0;
+        }
+
     }
 }
