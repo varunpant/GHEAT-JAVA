@@ -28,9 +28,10 @@ public class App {
             ThemeManager.init(classpathResource.getPath() + "res/etc/");
 
             // HeatMapDataSource dataSource = new FileDataSource(classpathResource.getPath() + "points.txt");
-             HeatMapDataSource dataSource = new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
+         //   HeatMapDataSource dataSource = new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
             //HeatMapDataSource dataSource = new PostGisDataSource(query);
 
+            HeatMapDataSource dataSource = new QuadTreeDataSource("C:\\Users\\va008pa\\Desktop\\Quadtree\\src\\test\\resources\\CrimeMapDataWGS84.csv");
             dataManager = new DataManager(dataSource);
 
 
