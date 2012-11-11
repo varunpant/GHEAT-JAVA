@@ -31,7 +31,7 @@ public class App {
          //   HeatMapDataSource dataSource = new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
             //HeatMapDataSource dataSource = new PostGisDataSource(query);
 
-            HeatMapDataSource dataSource = new QuadTreeDataSource("C:\\Users\\va008pa\\Desktop\\Quadtree\\src\\test\\resources\\CrimeMapDataWGS84.csv");
+            HeatMapDataSource dataSource = new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
             dataManager = new DataManager(dataSource);
 
 

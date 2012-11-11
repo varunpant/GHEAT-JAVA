@@ -51,8 +51,8 @@ public class QuadTreeDataSource implements HeatMapDataSource {
         String[] lines = readAllTextFileLines(source);
         for (String line : lines) {
             item = line.split(",");
-           // qt.set(Double.parseDouble(item[2]), Double.parseDouble(item[1]), Double.parseDouble(item[0]));
-            qt.set(Double.parseDouble(item[0]), Double.parseDouble(item[1]), Double.parseDouble(item[3]));
+            qt.set(Double.parseDouble(item[2]), Double.parseDouble(item[1]), Double.parseDouble(item[0]));
+
         }
     }
 
