@@ -15,6 +15,26 @@ public class DBPool {
     private static DataSource ds;
     private static SharedPoolDataSource tds;
 
+    static {
+        Properties dataSourceProperties = getProperties();
+        DriverAdapterCPDS cpds = new DriverAdapterCPDS();
+        try {
+            cpds.setDriver(dataSourceProperties.getProperty("driverClass"));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        cpds.setUrl(dataSourceProperties.getProperty("url"));
+        cpds.setUser(dataSourceProperties.getProperty("username"));
+        cpds.setPassword(dataSourceProperties.getProperty("password"));
+
+        tds = new SharedPoolDataSource();
+        tds.setConnectionPoolDataSource(cpds);
+        tds.setMaxActive(Integer.valueOf(dataSourceProperties.getProperty("maxActive")));
+        tds.setMaxWait(Integer.valueOf(dataSourceProperties.getProperty("maxWait")));
+
+        ds = tds;
+    }
+
     private static Properties getProperties() {
         Properties dataSourceProperties = new Properties();
         try {
@@ -26,27 +46,6 @@ public class DBPool {
     }
 
     public static Connection getConnection() throws SQLException {
-        if (ds == null) {
-            Properties dataSourceProperties = getProperties();
-            DriverAdapterCPDS cpds = new DriverAdapterCPDS();
-            try {
-                cpds.setDriver(dataSourceProperties.getProperty("driverClass"));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            cpds.setUrl(dataSourceProperties.getProperty("url"));
-            cpds.setUser(dataSourceProperties.getProperty("username"));
-            cpds.setPassword(dataSourceProperties.getProperty("password"));
-
-            tds = new SharedPoolDataSource();
-            tds.setConnectionPoolDataSource(cpds);
-            tds.setMaxActive(Integer.valueOf(dataSourceProperties.getProperty("maxActive")));
-            tds.setMaxWait(Integer.valueOf(dataSourceProperties.getProperty("maxWait")));
-
-            ds = tds;
-
-        }
-
         return ds.getConnection();
     }
 

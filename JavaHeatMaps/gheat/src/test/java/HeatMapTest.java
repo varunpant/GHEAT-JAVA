@@ -4,10 +4,6 @@ import junit.framework.TestCase;
 
 public class HeatMapTest extends TestCase {
 
-
-
-
-
     public void testOverloadedMethod() throws Exception {
 
 //        ThemeManager.init("..\\res\\etc\\");

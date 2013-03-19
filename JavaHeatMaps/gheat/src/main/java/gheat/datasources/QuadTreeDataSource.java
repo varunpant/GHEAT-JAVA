@@ -10,7 +10,7 @@ import java.io.FileReader;
 
 public class QuadTreeDataSource implements HeatMapDataSource {
 
-    QuadTree qt = new QuadTree(-180.000000, -90.000000, 180.000000, 90.000000);
+   static QuadTree qt = new QuadTree(-180.000000, -90.000000, 180.000000, 90.000000);
 
     public QuadTreeDataSource(String filePath) {
         LoadPointsFromFile(filePath);
@@ -20,7 +20,6 @@ public class QuadTreeDataSource implements HeatMapDataSource {
 
     @Override
     public PointLatLng[] GetList(DataPoint tlb, DataPoint lrb, int zoom, Projections _projection) {
-
 
         PointLatLng ptlb;
         PointLatLng plrb;
@@ -37,21 +36,12 @@ public class QuadTreeDataSource implements HeatMapDataSource {
     }
 
 
-
-
-
-
-    @Override
-    public void close() {
-        qt.clear();
-    }
-
     private void LoadPointsFromFile(String source) {
         String[] item;
         String[] lines = readAllTextFileLines(source);
         for (String line : lines) {
             item = line.split(",");
-            qt.set(Double.parseDouble(item[2]), Double.parseDouble(item[1]), Double.parseDouble(item[0]));
+            qt.set(Double.parseDouble(item[0]), Double.parseDouble(item[1]), 0);
 
         }
     }

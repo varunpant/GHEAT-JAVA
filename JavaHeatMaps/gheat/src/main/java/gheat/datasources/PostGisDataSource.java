@@ -7,6 +7,7 @@ import gheat.Projections;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,16 +15,9 @@ import java.util.logging.Logger;
 
 public class PostGisDataSource implements HeatMapDataSource {
 
-
-    PreparedStatement pst = null;
-    ResultSet rs = null;
-    List<PointLatLng> llList;
-    Connection con = null;
-
     static String query = null;
 
     public PostGisDataSource(String query) {
-        llList = new ArrayList<PointLatLng>();
 
         this.query = query;
     }
@@ -41,21 +35,21 @@ public class PostGisDataSource implements HeatMapDataSource {
 
 
         llList = getData(plrb.getLongitude(), plrb.getLatitude(), ptlb.getLongitude(), ptlb.getLatitude());
-
-
-        return llList.toArray(new PointLatLng[llList.size()]);
-    }
-
-    @Override
-    public void close()  {
-        try {
-            DBPool.CloseConnections();
-        } catch (Exception e) {
-            e.printStackTrace();
+        PointLatLng[] result =new PointLatLng[llList.size()];
+        for (int i = 0; i < llList.size(); i++) {
+            result[i] = llList.get(i);
         }
+
+        return result;
     }
+
 
     private List<PointLatLng> getData(double llx, double lly, double ulx, double uly) {
+        List<PointLatLng> llList  = new ArrayList<PointLatLng>();
+        Connection con = null;
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
         try {
 
             con = DBPool.getConnection();
@@ -73,12 +67,11 @@ public class PostGisDataSource implements HeatMapDataSource {
             while (rs.next()) {
                 String wkt = rs.getString("geom");
                 String[] points = wkt.replace("POINT(", "").replace(")", "").split(" ");   //:!
-                double offenses = rs.getDouble("weight");
+                double weight = rs.getDouble("weight");
+                double longitude = Double.parseDouble(points[1]);//x
+                double latitude = Double.parseDouble(points[0]); //y
 
-                double longitude = Double.parseDouble(points[0]);//x
-                double latitude = Double.parseDouble(points[1]); //y
-
-                PointLatLng pt = new PointLatLng(latitude, longitude, offenses);
+                PointLatLng pt = new PointLatLng(latitude, longitude, weight);
                 llList.add(pt);
             }
         } catch (Exception ex) {
@@ -86,7 +79,13 @@ public class PostGisDataSource implements HeatMapDataSource {
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
 
         } finally {
-
+            try {
+                rs.close();
+                pst.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             return llList;
         }
     }

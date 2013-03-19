@@ -53,6 +53,7 @@ public class FileDataSource implements HeatMapDataSource {
 
     @Override
     public PointLatLng[] GetList(DataPoint tlb, DataPoint lrb, int zoom, Projections _projection) {
+
         List<PointLatLng> llList = null;
 
         PointLatLng ptlb;
@@ -78,8 +79,5 @@ public class FileDataSource implements HeatMapDataSource {
         return llList.toArray(new PointLatLng[llList.size()]);
     }
 
-    @Override
-    public void close() {
 
-    }
 }

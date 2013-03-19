@@ -56,8 +56,5 @@ public class DataManager {
         return new DataPoint(mapPixelPoint.getX() - (tileXYPoint.getX() * HeatMap.SIZE), mapPixelPoint.getY() - (tileXYPoint.getY() * HeatMap.SIZE));
     }
 
-    public void close()
-    {
-        this.dataSource.close();
-    }
+
 }

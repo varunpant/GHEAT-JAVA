@@ -10,8 +10,7 @@ import java.awt.image.BufferedImage;
 public class Tile {
     private static int[] _zoomOpacity = new Opacity().BuildZoomMapping();
 
-    private Tile()
-    {
+    private Tile() {
 
     }
 
@@ -174,8 +173,8 @@ public class Tile {
         //I want to make the color more intense (White/bright)
         tempWeight = weight;
 
-        //AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f);
-        // graphic.setComposite(composite);
+        AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f);
+        graphic.setComposite(composite);
 
         graphic.drawImage(
                 image, // Source Image
@@ -236,6 +235,7 @@ public class Tile {
         ) * 255.0f);
 
         graphic.setColor(new Color(colorSchemePixelColor.getRed(), colorSchemePixelColor.getGreen(), colorSchemePixelColor.getBlue(), zoomOpacity));
+
         graphic.fillRect(0, 0, HeatMap.SIZE, HeatMap.SIZE);
         graphic.dispose();
 
