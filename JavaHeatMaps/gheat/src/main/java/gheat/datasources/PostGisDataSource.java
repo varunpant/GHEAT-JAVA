@@ -65,13 +65,10 @@ public class PostGisDataSource implements HeatMapDataSource {
             System.out.println(pst);
             rs = pst.executeQuery();
             while (rs.next()) {
-                String wkt = rs.getString("geom");
-                String[] points = wkt.replace("POINT(", "").replace(")", "").split(" ");   //:!
                 double weight = rs.getDouble("weight");
-                double longitude = Double.parseDouble(points[1]);//x
-                double latitude = Double.parseDouble(points[0]); //y
-
-                PointLatLng pt = new PointLatLng(latitude, longitude, weight);
+                double longitude = rs.getDouble("longitude");//x
+                double latitude = rs.getDouble("latitude"); //y
+                PointLatLng pt = new PointLatLng(longitude, latitude, weight);
                 llList.add(pt);
             }
         } catch (Exception ex) {

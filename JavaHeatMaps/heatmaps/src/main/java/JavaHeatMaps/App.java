@@ -20,17 +20,13 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         if (dataManager == null) {
-
             ThemeManager.init(classpathResource.getPath() + "res/etc/");
-
             //HeatMapDataSource dataSource = getFileDataSource();
             //HeatMapDataSource dataSource = getQuadTreeDataSource();
             HeatMapDataSource dataSource = getPostGisDataSource();
             dataManager = new DataManager(dataSource);
-
             System.out.println("======================================= Initialised =======================================");
         }
-
         Server server = new Server(8080);
         server.setHandler(new TileHandler());
 
@@ -38,22 +34,29 @@ public class App {
         server.join();
 
     }
+
     /*
    Gets PostGIS data source.
    * */
     private static PostGisDataSource getPostGisDataSource() {
-        String query = "SELECT ST_AsText(\"wkb_geometry\") as geom ,\"offences\" as weight FROM crimedata WHERE \"wkb_geometry\" @ ST_MakeEnvelope(?,?,?,?,4326)";
+        //In this query aliases(longitude,latitude,weight) must remain as shown, the actual table name ,geometry column name and weight column name can change .
+        String query = "SELECT ST_X(geom) as longitude," +
+                "ST_Y(geom) as latitude" +
+                "weight as weight from spatialTable where geom @ ST_MakeEnvelope(?,?,?,?,4326)";
+
         return new PostGisDataSource(query);
     }
+
     /*
    Gets File tree data source.
    * */
     private static FileDataSource getFileDataSource() {
         return new FileDataSource(classpathResource.getPath() + "points.txt");
     }
+
     /*
-    Gets quad tree data source.
-    * */
+   Gets quad tree data source.
+   * */
     private static QuadTreeDataSource getQuadTreeDataSource() {
         return new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
     }
