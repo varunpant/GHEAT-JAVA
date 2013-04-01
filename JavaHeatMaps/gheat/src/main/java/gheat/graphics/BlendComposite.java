@@ -35,22 +35,22 @@ import java.awt.image.RasterFormatException;
  * <h2>Creating a Blend Composite</h2>
  * <p>Blend composites can be created in various manners:</p>
  * <ul>
- *   <li>Use one of the pre-defined instance. Example:
- *     <code>BlendComposite.Average</code>.</li>
- *   <li>Derive one of the pre-defined instances by calling
- *     {@link #derive(float)} or {@link #derive(BlendingMode)}. Deriving allows
- *     you to change either the opacity or the blending mode. Example:
- *     <code>BlendComposite.Average.derive(0.5f)</code>.</li>
- *   <li>Use a factory method: {@link #getInstance(BlendingMode)} or
- *     {@link #getInstance(BlendingMode, float)}.</li>
+ * <li>Use one of the pre-defined instance. Example:
+ * <code>BlendComposite.Average</code>.</li>
+ * <li>Derive one of the pre-defined instances by calling
+ * {@link #derive(float)} or {@link #derive(BlendingMode)}. Deriving allows
+ * you to change either the opacity or the blending mode. Example:
+ * <code>BlendComposite.Average.derive(0.5f)</code>.</li>
+ * <li>Use a factory method: {@link #getInstance(BlendingMode)} or
+ * {@link #getInstance(BlendingMode, float)}.</li>
  * </ul>
  * <h2>Implementation Caveat</h2>
  * <p>TThe blending mode <em>SoftLight</em> has not been implemented yet.</p>
  *
+ * @author Romain Guy <romain.guy@mac.com>
  * @see java.awt.Graphics2D
  * @see java.awt.Composite
  * @see java.awt.AlphaComposite
- * @author Romain Guy <romain.guy@mac.com>
  */
 public final class BlendComposite implements Composite {
     /**
@@ -148,7 +148,7 @@ public final class BlendComposite implements Composite {
      *
      * @param mode the blending mode defining the compositing rule
      * @return a new <code>BlendComposite</code> based on the selected blending
-     *   mode, with an opacity of 1.0
+     *         mode, with an opacity of 1.0
      */
     public static BlendComposite getInstance(BlendingMode mode) {
         return new BlendComposite(mode);
@@ -158,13 +158,13 @@ public final class BlendComposite implements Composite {
      * <p>Creates a new composite based on the blending mode and opacity passed
      * as parameters. The opacity must be a value between 0.0 and 1.0.</p>
      *
-     * @param mode the blending mode defining the compositing rule
+     * @param mode  the blending mode defining the compositing rule
      * @param alpha the constant alpha to be multiplied with the alpha of the
-     *   source. <code>alpha</code> must be a floating point between 0.0 and 1.0.
-     * @throws IllegalArgumentException if the opacity is less than 0.0 or
-     *   greater than 1.0
+     *              source. <code>alpha</code> must be a floating point between 0.0 and 1.0.
      * @return a new <code>BlendComposite</code> based on the selected blending
-     *   mode and opacity
+     *         mode and opacity
+     * @throws IllegalArgumentException if the opacity is less than 0.0 or
+     *                                  greater than 1.0
      */
     public static BlendComposite getInstance(BlendingMode mode, float alpha) {
         return new BlendComposite(mode, alpha);
@@ -177,7 +177,7 @@ public final class BlendComposite implements Composite {
      *
      * @param mode the blending mode defining the compositing rule
      * @return a <code>BlendComposite</code> object derived from this object,
-     *   that uses the specified blending mode
+     *         that uses the specified blending mode
      */
     public BlendComposite derive(BlendingMode mode) {
         return this.mode == mode ? this : new BlendComposite(mode, getAlpha());
@@ -189,11 +189,11 @@ public final class BlendComposite implements Composite {
      * opacity is the same as this object's, this object is returned.</p>
      *
      * @param alpha the constant alpha to be multiplied with the alpha of the
-     *   source. <code>alpha</code> must be a floating point between 0.0 and 1.0.
-     * @throws IllegalArgumentException if the opacity is less than 0.0 or
-     *   greater than 1.0
+     *              source. <code>alpha</code> must be a floating point between 0.0 and 1.0.
      * @return a <code>BlendComposite</code> object derived from this object,
-     *   that uses the specified blending mode
+     *         that uses the specified blending mode
+     * @throws IllegalArgumentException if the opacity is less than 0.0 or
+     *                                  greater than 1.0
      */
     public BlendComposite derive(float alpha) {
         return this.alpha == alpha ? this : new BlendComposite(getMode(), alpha);

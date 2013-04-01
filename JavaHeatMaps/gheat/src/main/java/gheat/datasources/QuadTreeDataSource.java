@@ -10,39 +10,34 @@ import java.io.FileReader;
 
 public class QuadTreeDataSource implements HeatMapDataSource {
 
-   static QuadTree qt = new QuadTree(-180.000000, -90.000000, 180.000000, 90.000000);
+    static QuadTree qt = new QuadTree(-180.000000, -90.000000, 180.000000, 90.000000);
 
-    public QuadTreeDataSource(String filePath) {
-        LoadPointsFromFile(filePath);
+    /*
+*Constructor for QuadTreeDataSource takes indexes for longitude,latitude and weight colums from csv file. */
+    public QuadTreeDataSource(String filePath, int longitudeIndex, int latitudeIndex, int weightIndex) {
+        LoadPointsFromFile(filePath, longitudeIndex, latitudeIndex, weightIndex);
     }
-
 
 
     @Override
     public PointLatLng[] GetList(DataPoint tlb, DataPoint lrb, int zoom, Projections _projection) {
 
-        PointLatLng ptlb;
-        PointLatLng plrb;
-
-        ptlb = _projection.fromPixelToLatLng( lrb, zoom);
-        plrb = _projection.fromPixelToLatLng(tlb , zoom);
-
-
-        PointLatLng[] list = qt.searchIntersect(plrb.getLongitude(),ptlb.getLatitude(),
-                ptlb.getLongitude(),plrb.getLatitude());
-
-
+        PointLatLng ptlb = _projection.fromPixelToLatLng(lrb, zoom);
+        PointLatLng plrb = _projection.fromPixelToLatLng(tlb, zoom);
+        PointLatLng[] list = qt.searchIntersect(plrb.getLongitude(),
+                ptlb.getLatitude(),
+                ptlb.getLongitude(),
+                plrb.getLatitude());
         return list;
     }
 
 
-    private void LoadPointsFromFile(String source) {
+    private void LoadPointsFromFile(String source, int longitudeIndex, int latitudeIndex, int weightIndex) {
         String[] item;
         String[] lines = readAllTextFileLines(source);
         for (String line : lines) {
             item = line.split(",");
-            qt.set(Double.parseDouble(item[0]), Double.parseDouble(item[1]), 0);
-
+            qt.set(Double.parseDouble(item[longitudeIndex]), Double.parseDouble(item[latitudeIndex]), Double.parseDouble(item[latitudeIndex]));
         }
     }
 

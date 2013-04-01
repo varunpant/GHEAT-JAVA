@@ -25,7 +25,7 @@ public class PointLatLng implements Comparable {
     public PointLatLng(double longitude, double latitude, double weight) {
         this.latitude = latitude;
         this.longitude = longitude;
-       // this.weight = weight;
+        // this.weight = weight;
     }
 
     public PointLatLng(double longitude, double latitude, Object opt_value) {
@@ -70,9 +70,7 @@ public class PointLatLng implements Comparable {
             return -1;
         } else if (this.longitude > tmp.longitude) {
             return 1;
-        }
-        else
-        {
+        } else {
             if (this.latitude < tmp.latitude) {
                 return -1;
             } else if (this.latitude > tmp.latitude) {

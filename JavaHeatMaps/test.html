@@ -1,91 +1,92 @@
 <html>
-	<head>
-		<title></title>
-		<script type="text/javascript"  src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
-		
-		<script type="text/javascript">
-			var markers = new Array();
-			var colorSchemeArray = new Array();
-			var map;
-			var initialZoom = 5;
-			var currentHeatMap;
-			var mapDataTimeOutID = 0;
-			var facilityData = new Array();
-			var currentMarker;
-			
-			function initialize() {
-				var myLatlng = new google.maps.LatLng(30.1238660, -92.0706730);//original
-				 
-				var selectedColorScheme = document.getElementById("colorSchemes").value;
-				var mapOptions = { scrollwheel: false };
-				
-				colorSchemeArray[selectedColorScheme] = getHeatMapObject(selectedColorScheme);
-				
-				//Create a map
-				map = new google.maps.Map(document.getElementById("map"), mapOptions);
-				//set the default center
-				map.setCenter(myLatlng);
-				//set the default zoom
-				map.setZoom(initialZoom);
-				//add the default overlaycc
-				map.overlayMapTypes.insertAt(0, colorSchemeArray[selectedColorScheme]);
-				//Set the map type
-				map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-				//map.addControl(new GLargeMapControl());
-			}
-			
-			function getHeatMapObject(colorScheme) {
-				var heatMapOptions = {
-					getTileUrl: function(tile, zoom) {
-						
-						return 'http://localhost:8080?colorScheme=' + colorScheme + '&zoom=' +
-						zoom +
-						'&x=' + tile.x +
-						'&y=' + tile.y; //+
-						//I want to ensure the image is no cached just incase the data changes
-						'&rand=' + Math.random();
-					},
-					tileSize: new google.maps.Size(256, 256),
-					isPng: true,
-					releaseTile: function(tile, zoom) {
-						//Called when a tile is out of view
-					},
-					name: colorScheme + "Heat Map"
-				};
-				return new google.maps.ImageMapType(heatMapOptions);
-			}
-			
-			function changeColorScheme(control) {
-				//Remove the current one
-				map.overlayMapTypes.removeAt(0);
-				if (colorSchemeArray[control.value] == null) {
-					//Get a new one
-					colorSchemeArray[control.value] = getHeatMapObject(control.value);
-				}
-				//Now set it
-				map.overlayMapTypes.insertAt(0, colorSchemeArray[control.value]);
-			}
-		</script>
-	</head>
-	<body  onload="javascript:initialize();">
-		
-        <div id="map" style="float:left; width:80%; height:90%; border:solid 1px black;">&nbsp;</div>
-        <div style="float:right;width:18%; vertical-align:top;">
-            <div style="float:left;">Color Schemes</div>
-            <div style="float:right;">
-				<select name="colorSchemes" id="colorSchemes" onchange="javascript:changeColorScheme(this);">
-					<option value="classic">classic</option>
-					<option value="fire">fire</option>
-					<option value="omg">omg</option>
-					<option value="pbj">pbj</option>
-					<option value="pgaitch">pgaitch</option>
-					<option value="mod">mod</option>
-					<option value="red">red</option>
-				</select>
-			</div>
-            <div style="clear:both;"></div>
-		</div>             
-        <div style="clear:both;"></div>
-		
-	</body>
+<head>
+    <title></title>
+    <script type="text/javascript"
+            src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
+
+    <script type="text/javascript">
+        var markers = new Array();
+        var colorSchemeArray = new Array();
+        var map;
+        var initialZoom = 5;
+        var currentHeatMap;
+        var mapDataTimeOutID = 0;
+        var facilityData = new Array();
+        var currentMarker;
+
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(30.1238660, -92.0706730);//original
+
+            var selectedColorScheme = document.getElementById("colorSchemes").value;
+            var mapOptions = { scrollwheel:false };
+
+            colorSchemeArray[selectedColorScheme] = getHeatMapObject(selectedColorScheme);
+
+            //Create a map
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            //set the default center
+            map.setCenter(myLatlng);
+            //set the default zoom
+            map.setZoom(initialZoom);
+            //add the default overlaycc
+            map.overlayMapTypes.insertAt(0, colorSchemeArray[selectedColorScheme]);
+            //Set the map type
+            map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+            //map.addControl(new GLargeMapControl());
+        }
+
+        function getHeatMapObject(colorScheme) {
+            var heatMapOptions = {
+                getTileUrl:function (tile, zoom) {
+
+                    return 'http://localhost:8080?colorScheme=' + colorScheme + '&zoom=' +
+                            zoom +
+                            '&x=' + tile.x +
+                            '&y=' + tile.y; //+
+                    //I want to ensure the image is no cached just incase the data changes
+                    '&rand=' + Math.random();
+                },
+                tileSize:new google.maps.Size(256, 256),
+                isPng:true,
+                releaseTile:function (tile, zoom) {
+                    //Called when a tile is out of view
+                },
+                name:colorScheme + "Heat Map"
+            };
+            return new google.maps.ImageMapType(heatMapOptions);
+        }
+
+        function changeColorScheme(control) {
+            //Remove the current one
+            map.overlayMapTypes.removeAt(0);
+            if (colorSchemeArray[control.value] == null) {
+                //Get a new one
+                colorSchemeArray[control.value] = getHeatMapObject(control.value);
+            }
+            //Now set it
+            map.overlayMapTypes.insertAt(0, colorSchemeArray[control.value]);
+        }
+    </script>
+</head>
+<body onload="javascript:initialize();">
+
+<div id="map" style="float:left; width:80%; height:90%; border:solid 1px black;">&nbsp;</div>
+<div style="float:right;width:18%; vertical-align:top;">
+    <div style="float:left;">Color Schemes</div>
+    <div style="float:right;">
+        <select name="colorSchemes" id="colorSchemes" onchange="javascript:changeColorScheme(this);">
+            <option value="classic">classic</option>
+            <option value="fire">fire</option>
+            <option value="omg">omg</option>
+            <option value="pbj">pbj</option>
+            <option value="pgaitch">pgaitch</option>
+            <option value="mod">mod</option>
+            <option value="red">red</option>
+        </select>
+    </div>
+    <div style="clear:both;"></div>
+</div>
+<div style="clear:both;"></div>
+
+</body>
 </html>

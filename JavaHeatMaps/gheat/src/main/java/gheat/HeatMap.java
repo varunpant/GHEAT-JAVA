@@ -9,9 +9,7 @@ import java.awt.image.BufferedImage;
 public class HeatMap {
 
 
-
     public static boolean isInitialised = false;
-
 
 
     private HeatMap() {

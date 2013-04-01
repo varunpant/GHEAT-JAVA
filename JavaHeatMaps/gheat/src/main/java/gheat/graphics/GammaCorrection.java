@@ -5,15 +5,13 @@ import java.awt.image.BufferedImage;
 
 /**
  * Gamma correction algorithm
- *
+ * <p/>
  * Author: Bostjan Cigan (http://zerocool.is-a-geek.net)
- *
  */
 
 public class GammaCorrection {
 
     private static BufferedImage original, gamma_corrected;
-
 
 
     public static BufferedImage gammaCorrection(BufferedImage original, double gamma) {
@@ -26,8 +24,8 @@ public class GammaCorrection {
 
         BufferedImage gamma_cor = new BufferedImage(original.getWidth(), original.getHeight(), original.getType());
 
-        for(int i=0; i<original.getWidth(); i++) {
-            for(int j=0; j<original.getHeight(); j++) {
+        for (int i = 0; i < original.getWidth(); i++) {
+            for (int j = 0; j < original.getHeight(); j++) {
 
                 // Get pixels by R, G, B
                 alpha = new Color(original.getRGB(i, j)).getAlpha();
@@ -57,7 +55,7 @@ public class GammaCorrection {
     private static int[] gamma_LUT(double gamma_new) {
         int[] gamma_LUT = new int[256];
 
-        for(int i=0; i<gamma_LUT.length; i++) {
+        for (int i = 0; i < gamma_LUT.length; i++) {
             gamma_LUT[i] = (int) (255 * (Math.pow((double) i / (double) 255, gamma_new)));
         }
 
@@ -70,8 +68,10 @@ public class GammaCorrection {
         int newPixel = 0;
         newPixel += alpha;
         newPixel = newPixel << 8;
-        newPixel += red; newPixel = newPixel << 8;
-        newPixel += green; newPixel = newPixel << 8;
+        newPixel += red;
+        newPixel = newPixel << 8;
+        newPixel += green;
+        newPixel = newPixel << 8;
         newPixel += blue;
 
         return newPixel;

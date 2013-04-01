@@ -1,7 +1,6 @@
 import junit.framework.TestCase;
 
 
-
 public class HeatMapTest extends TestCase {
 
     public void testOverloadedMethod() throws Exception {

@@ -76,7 +76,7 @@ public class QuadTreeTest extends TestCase {
         assertEquals("Sorted keys should be " + expected2, expected2, keyString2);
 
         PointLatLng[] points3 = qt.searchIntersect(55, 0, 50, 96);
-        assertEquals("Should return no points for higher x",0,points3.length);
+        assertEquals("Should return no points for higher x", 0, points3.length);
     }
 
     @Test

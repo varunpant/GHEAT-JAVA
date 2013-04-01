@@ -16,17 +16,20 @@ import java.net.URL;
  */
 public class App {
     public static DataManager dataManager = null;
-    static URL classpathResource = Thread.currentThread().getContextClassLoader().getResource("");
+    static URL classpathResource = ClassLoader.getSystemClassLoader().getResource("//");
 
     public static void main(String[] args) throws Exception {
         if (dataManager == null) {
+
             ThemeManager.init(classpathResource.getPath() + "res/etc/");
-            //HeatMapDataSource dataSource = getFileDataSource();
-            //HeatMapDataSource dataSource = getQuadTreeDataSource();
-            HeatMapDataSource dataSource = getPostGisDataSource();
+            HeatMapDataSource dataSource = getFileDataSource();
+            // HeatMapDataSource dataSource = getQuadTreeDataSource();
+            // HeatMapDataSource dataSource = getPostGisDataSource();
+
             dataManager = new DataManager(dataSource);
             System.out.println("======================================= Initialised =======================================");
         }
+
         Server server = new Server(8080);
         server.setHandler(new TileHandler());
 
@@ -48,16 +51,16 @@ public class App {
     }
 
     /*
-   Gets File tree data source.
+   Gets File data source.
    * */
     private static FileDataSource getFileDataSource() {
-        return new FileDataSource(classpathResource.getPath() + "points.txt");
+        return new FileDataSource(classpathResource.getPath() + "points.txt", 2, 1, 0);
     }
 
     /*
-   Gets quad tree data source.
+   Gets quad tree data source. Takes indexes of longitude,latitude and weight columns in the csv file.
    * */
     private static QuadTreeDataSource getQuadTreeDataSource() {
-        return new QuadTreeDataSource(classpathResource.getPath() + "points.txt");
+        return new QuadTreeDataSource(classpathResource.getPath() + "points.txt", 2, 1, 0);
     }
 }

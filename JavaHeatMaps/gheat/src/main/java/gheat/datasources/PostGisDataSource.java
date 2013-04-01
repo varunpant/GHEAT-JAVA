@@ -35,7 +35,7 @@ public class PostGisDataSource implements HeatMapDataSource {
 
 
         llList = getData(plrb.getLongitude(), plrb.getLatitude(), ptlb.getLongitude(), ptlb.getLatitude());
-        PointLatLng[] result =new PointLatLng[llList.size()];
+        PointLatLng[] result = new PointLatLng[llList.size()];
         for (int i = 0; i < llList.size(); i++) {
             result[i] = llList.get(i);
         }
@@ -45,7 +45,7 @@ public class PostGisDataSource implements HeatMapDataSource {
 
 
     private List<PointLatLng> getData(double llx, double lly, double ulx, double uly) {
-        List<PointLatLng> llList  = new ArrayList<PointLatLng>();
+        List<PointLatLng> llList = new ArrayList<PointLatLng>();
         Connection con = null;
 
         PreparedStatement pst = null;

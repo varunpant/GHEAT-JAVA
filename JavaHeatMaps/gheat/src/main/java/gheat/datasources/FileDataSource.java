@@ -15,18 +15,18 @@ public class FileDataSource implements HeatMapDataSource {
     static List<PointLatLng> _pointList = null;
 
 
-    public FileDataSource(String filePath) {
+    public FileDataSource(String filePath, int longitudeIndex, int latitudeIndex, int weightIndex) {
 
         _pointList = new ArrayList<PointLatLng>();
-        LoadPointsFromFile(filePath);
+        LoadPointsFromFile(filePath, longitudeIndex, latitudeIndex, weightIndex);
     }
 
-    private void LoadPointsFromFile(String source) {
+    private void LoadPointsFromFile(String source, int longitudeIndex, int latitudeIndex, int weightIndex) {
         String[] item;
         String[] lines = readAllTextFileLines(source);
         for (String line : lines) {
             item = line.split(",");
-            _pointList.add(new PointLatLng(Double.parseDouble(item[2]), Double.parseDouble(item[1])));
+            _pointList.add(new PointLatLng(Double.parseDouble(item[longitudeIndex]), Double.parseDouble(item[latitudeIndex]), Double.parseDouble(item[latitudeIndex])));
         }
     }
 

@@ -63,10 +63,10 @@ class ColorUtilities {
      * RGB color. All three HSL components are between 0.0 and 1.0.</p>
      *
      * @param color the RGB color to convert
-     * @param hsl a pre-allocated array of floats; can be null
+     * @param hsl   a pre-allocated array of floats; can be null
      * @return <code>hsl</code> if non-null, a new array of 3 floats otherwise
      * @throws IllegalArgumentException if <code>hsl</code> has a length lower
-     *   than 3
+     *                                  than 3
      */
     public static float[] RGBtoHSL(Color color, float[] hsl) {
         return RGBtoHSL(color.getRed(), color.getGreen(), color.getBlue(), hsl);
@@ -89,13 +89,13 @@ class ColorUtilities {
      * <p>Returns the HSL (Hue/Saturation/Luminance) equivalent of a given
      * RGB color. All three HSL components are floats between 0.0 and 1.0.</p>
      *
-     * @param r the red component, between 0 and 255
-     * @param g the green component, between 0 and 255
-     * @param b the blue component, between 0 and 255
+     * @param r   the red component, between 0 and 255
+     * @param g   the green component, between 0 and 255
+     * @param b   the blue component, between 0 and 255
      * @param hsl a pre-allocated array of floats; can be null
      * @return <code>hsl</code> if non-null, a new array of 3 floats otherwise
      * @throws IllegalArgumentException if <code>hsl</code> has a length lower
-     *   than 3
+     *                                  than 3
      */
     public static float[] RGBtoHSL(int r, int g, int b, float[] hsl) {
         if (hsl == null) {
@@ -193,13 +193,13 @@ class ColorUtilities {
      * <p>Returns the RGB equivalent of a given HSL (Hue/Saturation/Luminance)
      * color. All three RGB components are integers between 0 and 255.</p>
      *
-     * @param h the hue component, between 0.0 and 1.0
-     * @param s the saturation component, between 0.0 and 1.0
-     * @param l the luminance component, between 0.0 and 1.0
+     * @param h   the hue component, between 0.0 and 1.0
+     * @param s   the saturation component, between 0.0 and 1.0
+     * @param l   the luminance component, between 0.0 and 1.0
      * @param rgb a pre-allocated array of ints; can be null
      * @return <code>rgb</code> if non-null, a new array of 3 ints otherwise
      * @throws IllegalArgumentException if <code>rgb</code> has a length lower
-     *   than 3
+     *                                  than 3
      */
     public static int[] HSLtoRGB(float h, float s, float l, int[] rgb) {
         if (rgb == null) {
