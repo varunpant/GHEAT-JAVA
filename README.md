@@ -35,3 +35,7 @@ I hope you find it useful.
 >If you like or use this project somewhere please contact me at
 varun@varunpant.com
 >http://varunpant.com
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/varunpant/gheat-java/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
